@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<project name="canvas" default="ear" basedir=".">
+  <property file="build.properties"/>
+  <path id="build.classpath">
+    <fileset dir="${das.lib.dir}" includes="${classpath.libs}" />
+  </path>
+  
+    <target name="clean" description="Clean the project">
+    <delete includeemptydirs="true" quiet="true">
+      <fileset dir="${output.dir}" includes="**/*"/>
+       <fileset dir="${deploy.dir}" includes="**/*"/>
+       <fileset dir="${build.classes}" includes="**/*"/>
+    </delete>
+  </target>
+  
+  <target name="init" depends="clean">
+    <tstamp/>
+    <mkdir dir="${output.dir}"/>
+     <mkdir dir="${deploy.dir}"/> 
+     <mkdir dir="${build.classes}"/>
+  </target>
+
+	<target name="compile" depends="init" description="compile the source  ">
+                <mkdir dir="${build.classes}"/>
+		<javac srcdir="${src.dir}" destdir="${build.classes}" classpathref="build.classpath"
+                        debug="true" deprecation="true" compiler="modern" source="${javac.source}" target="${javac.target}" />
+		<copy todir="${build.classes}">
+			<fileset dir="${src.dir}" excludes="**/*.java" />
+		</copy>
+	</target>
+    
+        
+	<target name="war" depends="compile" description="Create WAR File">
+		<mkdir dir="${webinf}"/>
+
+
+  	    <war destfile="${deploy.dir}/${app}.war" excludes="**/web.xml" webxml="${webinf}/web.xml" basedir="${web.dir}">
+            <classes dir="${build.classes}"/>
+           
+       </war>
+  	</target>     
+  
+  	<!-- CREATE ear file -->
+	<target name="ear" depends="war" description="Creates EAR File">
+          
+                <ear destfile="${deploy.dir}/${app}.ear" appxml="${basedir}/application.xml">
+                        <fileset dir="${deploy.dir}" includes="*.war" />                                             
+                </ear>
+		   	
+	</target>
+  
+    <target name="all" description="Build the project" depends="ear"/>
+    
+    <target name="release" depends="ear"/>
+  
+</project>

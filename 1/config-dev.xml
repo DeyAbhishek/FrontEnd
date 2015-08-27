@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sjrconfig>
+  <wqcs>
+    <appEnv activeEnv="DEV" hostname="dasdev/ereg"
+             datasource="jdbc:oracle:thin:@oradbdev1:1521:dev"
+             username="reguser" password="reguser"/>
+  </wqcs>
+  <canvas>
+     <url-config  referenceUrl="https://www.gocanvas.com/apiv2/reference_datas.xml?"
+                  username="jfrederi@sjrwmd.com"
+                  password="canvas"/>
+  </canvas>
+</sjrconfig>
