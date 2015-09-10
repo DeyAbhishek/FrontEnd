@@ -19,9 +19,9 @@ public class DBConnector {
                
 
                 try{
-                    String dataSrcNm = ConfigService.getInstance().getAttributeString("wqcs", "appEnv", "datasource");
-                    String user = ConfigService.getInstance().getAttributeString("wqcs", "appEnv", "username");
-                    String pswd = ConfigService.getInstance().getAttributeString("wqcs", "appEnv", "password");
+                    String dataSrcNm = ConfigService.getInstance().getAttributeString("", "", "");
+                    String user = ConfigService.getInstance().getAttributeString("", "", "");
+                    String pswd = ConfigService.getInstance().getAttributeString("", "", "");
                     
                     Class.forName("oracle.jdbc.driver.OracleDriver");
                     
